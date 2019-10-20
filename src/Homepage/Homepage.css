@@ -1,0 +1,106 @@
+.title {
+  font-size: 30px;
+}
+.PokeHidden {
+  width: 130px;
+  height: 157px;
+  font-size: 30px;
+}
+.Deck {
+  display: flex;
+  justify-content: space-around;
+}
+.GuessButton {
+  background: #c8c8c8;
+  border: none;
+  color: white;
+  padding: 14px 40px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.ShowMyDeck {
+  background: #c8c8c8;
+  border: none;
+  color: white;
+  padding: 15px 70px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 15px;
+  width: 365px;
+}
+
+.InputPokemon {
+  padding: 12px 20px;
+  box-sizing: border-box;
+}
+
+.Container {
+  margin: 10% auto;
+  width: 350px;
+}
+
+.ProgressBar {
+  margin: 5px 0;
+  width: 100%;
+  background: #c8c8c8;
+  height: 10px;
+  width: 365px;
+}
+
+.Pokeimg img {
+  background: #c8c8c8;
+  border-radius: 50%;
+  margin: 10px;
+  width: 150px;
+}
+
+.Guessed {
+  position: relative;
+}
+
+.ProgressText {
+  position: absolute;
+  top: 2px;
+  left: 165px;
+}
+
+.ShowedImg {
+  cursor: pointer;
+}
+
+@media (max-width: 410px) {
+  .Center {
+    justify-content: center;
+  }
+  .ShowMyDeck {
+    width: 250px;
+  }
+
+  .ProgressBar {
+    width: 250px;
+  }
+
+  .InputPokemon {
+    width: 150px;
+  }
+
+  .GuessButton {
+    width: 99px;
+    padding: 14px 25px;
+  }
+  .ProgressText {
+    left: 110px;
+  }
+  .Title h2 {
+    font-size: 30px;
+  }
+
+  .Pokeimg img {
+    width: 125px;
+  }
+}
