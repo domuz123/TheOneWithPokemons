@@ -5,25 +5,15 @@ import Backdrop from "../Backdrop/Backdrop";
 import "./Homepage.css";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import PokemonStatsModal from "../PokemonStatsModal/PokemonStatsModal";
+import { connect } from "react-redux";
 
-const analytics = {
-  pokemons: 151
-};
-
-export default class Homepage extends Component {
+class Homepage extends Component {
   state = {
     guessInputName: "",
     pokemonDeck: [],
-    apiUrl: "https://pokeapi.co/api/v2/",
-    getPokemon: "https://pokeapi.co/api/v2/pokemon/",
-    pokeDeckApi: `pokemon?offset=0&limit=${analytics.pokemons}`,
     newPokemonName: "",
     guessedPokemons: 0,
-    pokemonsLength: analytics.pokemons,
     newPokemonImage: "",
-    deckShowed: false,
-    statsShowed: false,
-    pokemonId: "",
     error: false
   };
 
@@ -33,7 +23,7 @@ export default class Homepage extends Component {
 
   fillPokeDeck = () => {
     axios
-      .get(this.state.apiUrl + this.state.pokeDeckApi)
+      .get(this.props.apiUrl + this.props.pokeDeckApi)
       .then(res => {
         // get pokemon id
         res.data.results.map((pokemon, index) => {
@@ -66,7 +56,6 @@ export default class Homepage extends Component {
   guessPokemon = () => {
     let guessText = this.state.guessInputName.toLowerCase();
     let pokemonDeck = [...this.state.pokemonDeck];
-
     let findPokomenName = pokemonDeck.find(pokemon => {
       return (
         pokemon.name.toLowerCase() === this.state.newPokemonName &&
@@ -124,7 +113,7 @@ export default class Homepage extends Component {
         }
       }
 
-      axios.get(this.state.getPokemon + randomPokemonNumber).then(res => {
+      axios.get(this.props.getPokemon + randomPokemonNumber).then(res => {
         this.setState({
           newPokemonName: res.data.name,
           newPokemonImage: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${
@@ -140,22 +129,6 @@ export default class Homepage extends Component {
     event.preventDefault();
   }
 
-  handleDeckShow = () => {
-    this.setState({
-      deckShowed: !this.state.deckShowed
-    });
-  };
-
-  pokStatsHandler = id => {
-    console.log(id);
-    this.setState(
-      {
-        statsShowed: !this.state.statsShowed,
-        pokemonId: id
-      },
-      console.log(this.state)
-    );
-  };
 
   render() {
     let error = <p style={{ textAlign: "center" }}> Something went wrong! </p>;
@@ -165,6 +138,7 @@ export default class Homepage extends Component {
           <div className="Container ">
             <div className="row d-flex">
               <div className="p-3 Title">
+                {this.state.newPokemonName}
                 <h2>Guess That Pokemon!</h2>
                 <div className="row d-flex justify-content-center Pokeimg">
                   <img
@@ -177,7 +151,6 @@ export default class Homepage extends Component {
                     <input
                       className="InputPokemon"
                       name="text"
-                      placeholder="Pokemon's Name..."
                       value={this.state.guessInputName}
                       onChange={this.guessInputChange}
                     />
@@ -193,7 +166,7 @@ export default class Homepage extends Component {
                   <div>
                     <button
                       className="ShowMyDeck"
-                      onClick={() => this.handleDeckShow()}
+                      onClick={() => this.props.handleDeckShow()}
                     >
                       {" "}
                       Show my Deck{" "}
@@ -209,18 +182,18 @@ export default class Homepage extends Component {
                       />{" "}
                       <div className="ProgressText">
                         {this.state.guessedPokemons} /{" "}
-                        {this.state.pokemonsLength}{" "}
+                        {this.props.pokemonsLength}{" "}
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <Modal
-                  showed={this.state.deckShowed}
-                  clicked={this.handleDeckShow}
+                  showed={this.props.deckShowed}
+                  clicked={this.props.handleDeckShow}
                 >
-                
-                  <h4> Your Deck! Click on them to see the stats! </h4>
+                  {" "}
+                  <h3> Your Deck! Click on them to see the stats! </h3>
                   <div className="Deck row justifiy-items-between">
                     {this.state.pokemonDeck.map(item => (
                       <div key={item.id} className="p-3">
@@ -239,7 +212,7 @@ export default class Homepage extends Component {
                               </h6>
                               <img
                                 className="ShowedImg"
-                                onClick={() => this.pokStatsHandler(item.id)}
+                                onClick={() => this.props.pokStatsHandler(item.id)}
                                 src={item.image}
                                 alt={item.name}
                               />
@@ -257,16 +230,16 @@ export default class Homepage extends Component {
                 </Modal>
 
                 <Backdrop
-                  showed={this.state.deckShowed}
-                  clicked={this.handleDeckShow}
+                  showed={this.props.deckShowed}
+                  clicked={this.props.handleDeckShow}
                 />
 
                 <React.Fragment>
-                  {this.state.statsShowed ? (
+                  {this.props.statsShowed ? (
                     <PokemonStatsModal
-                      showedStats={this.state.statsShowed}
-                      pokemonId={this.state.pokemonId}
-                      clicked={() => this.pokStatsHandler()}
+                      showedStats={this.props.statsShowed}
+                      pokemonId={this.props.pokemonId}
+                      clicked={() => this.props.pokStatsHandler()}
                     />
                   ) : null}
                 </React.Fragment>
@@ -280,3 +253,23 @@ export default class Homepage extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    deckShowed: state.deckShowed,
+    statsShowed: state.statsShowed,
+    pokemonId: state.pokemonId,
+    apiUrl: state.apiUrl,
+    getPokemon: state.getPokemon,
+    pokeDeckApi: state.pokeDeckApi,
+    pokemonsLength: state.pokemonsLength
+  }; 
+  }
+
+ const mapDispatchToProps = dispatch => ({
+  handleDeckShow: () => dispatch({type:'SHOWDECK'}),
+  pokStatsHandler: (id) => dispatch({type:'SHOWSTATS', pokemonId: id}),
+  handlePokemonInput: () => dispatch({type:'GUESSEDPOKEMONS'})
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Homepage);
