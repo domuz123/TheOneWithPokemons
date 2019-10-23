@@ -154,7 +154,7 @@ class Homepage extends Component {
           <div className='row justify-content-center'> 
        
               <div className="Title">
-                {this.state.newPokemonName}
+                {/* {this.state.newPokemonName} */}
                 <h2>Guess That Pokemon!</h2>
                 <div className="justify-content-center Pokeimg">
                   <img
