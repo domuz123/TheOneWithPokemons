@@ -6,6 +6,8 @@ import "./Homepage.css";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import PokemonStatsModal from "../PokemonStatsModal/PokemonStatsModal";
 import { connect } from "react-redux";
+import Swal from 'sweetalert2' 
+
 
 class Homepage extends Component {
   state = {
@@ -40,7 +42,6 @@ class Homepage extends Component {
         this.generateNewPokemon();
       })
       .catch(error => {
-        console.log(error);
         this.setState({
           error: true
         });
@@ -76,6 +77,13 @@ class Homepage extends Component {
           if (newPokemon.id === pokemon.id) {
             newPokemon.isGuessed = true;
             guessedPokemons = guessedPokemons + 1;
+            Swal.fire({
+              position: 'center',
+              type: 'success',
+              title: 'Right! Good Job!',
+              showConfirmButton: false,
+              timer: 1500
+            })
           }
         });
         this.setState(
@@ -92,7 +100,13 @@ class Homepage extends Component {
       }
     }
 
-    alert("Wrong! Try Again!");
+    Swal.fire({
+      position: 'center',
+      type: 'error',
+      title: 'Wrong! Try again!',
+      showConfirmButton: false,
+      timer: 1500
+    });
     return false;
   };
 
@@ -121,7 +135,7 @@ class Homepage extends Component {
           }.png`,
           guessInputName: ""
         });
-      });
+      })
     }
   };
 
@@ -129,9 +143,10 @@ class Homepage extends Component {
     event.preventDefault();
   }
 
-
   render() {
-    let error = <p style={{ textAlign: "center" }}> Something went wrong! </p>;
+
+    const error = <h1 style={{color:'white'}}> <strong> Something went wrong! </strong> </h1>
+    
     return (
       <React.Fragment>
         {!this.state.error ? (
@@ -139,7 +154,7 @@ class Homepage extends Component {
           <div className='row justify-content-center'> 
        
               <div className="Title">
-                {/* {this.state.newPokemonName} */}
+                {this.state.newPokemonName}
                 <h2>Guess That Pokemon!</h2>
                 <div className="justify-content-center Pokeimg">
                   <img
@@ -157,6 +172,7 @@ class Homepage extends Component {
                       onChange={this.guessInputChange}
                     />
                     <div>
+                
                       <button
                         className="GuessButton"
                         onClick={() => this.guessPokemon()}
@@ -248,7 +264,8 @@ class Homepage extends Component {
             </div>
          
         ) : (
-          error
+          
+    error
         )}
       </React.Fragment>
     );

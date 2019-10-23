@@ -22,12 +22,12 @@
 
 .Xbutton{
   position: absolute;
-  top: 0;
-  right: 10px;
+  top: 4px;
+  right: 0px;
   width: 23px;
   height: 23px;
   margin: auto 0;
-  opacity: 0.1;
+  opacity: 0.3;
   margin-bottom: 11px;
   cursor: pointer;
 

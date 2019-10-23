@@ -77,6 +77,16 @@
   display: flex
 }
 
+
+
+
+
+
+
+
+
+
+
 @media (max-width: 380px) {
   .Input-Guess {
     display: block
