@@ -1,5 +1,6 @@
-.title {
+.Title h2 {
   font-size: 30px;
+  color: #c8c8c8;
 }
 .PokeHidden {
   width: 130px;
@@ -19,8 +20,8 @@
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+  width: 100%
 }
-
 .ShowMyDeck {
   background: #c8c8c8;
   border: none;
@@ -31,17 +32,13 @@
   display: inline-block;
   font-size: 16px;
   margin-top: 15px;
-  width: 365px;
+  width: 100%
 }
 
 .InputPokemon {
   padding: 12px 20px;
   box-sizing: border-box;
-}
-
-.Container {
-  margin: 10% auto;
-  width: 350px;
+  width: 100%
 }
 
 .ProgressBar {
@@ -49,7 +46,7 @@
   width: 100%;
   background: #c8c8c8;
   height: 10px;
-  width: 365px;
+  width: 100%
 }
 
 .Pokeimg img {
@@ -62,45 +59,34 @@
 .Guessed {
   position: relative;
 }
-
 .ProgressText {
   position: absolute;
-  top: 2px;
-  left: 165px;
+  left: 0;
+  right: 0;
+  top: -3px;;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
 }
 
 .ShowedImg {
   cursor: pointer;
 }
 
-@media (max-width: 410px) {
-  .Center {
-    justify-content: center;
-  }
-  .ShowMyDeck {
-    width: 250px;
-  }
-
-  .ProgressBar {
-    width: 250px;
-  }
-
-  .InputPokemon {
-    width: 150px;
-  }
-
-  .GuessButton {
-    width: 99px;
-    padding: 14px 25px;
-  }
-  .ProgressText {
-    left: 110px;
-  }
-  .Title h2 {
-    font-size: 30px;
-  }
-
-  .Pokeimg img {
-    width: 125px;
-  }
+.Input-Guess {
+  display: flex
 }
+
+@media (max-width: 380px) {
+  .Input-Guess {
+    display: block
+  }
+  .Title h2{
+    font-size: 1.5rem
+  }
+ .Pokeimg img {
+  width: 130px;
+
+ }
+}
+

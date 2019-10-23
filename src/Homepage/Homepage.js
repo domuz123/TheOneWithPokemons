@@ -135,19 +135,21 @@ class Homepage extends Component {
     return (
       <React.Fragment>
         {!this.state.error ? (
-          <div className="Container ">
-            <div className="row d-flex">
-              <div className="p-3 Title">
-                {this.state.newPokemonName}
+          <div className="container ">
+          <div className='row justify-content-center'> 
+       
+              <div className="Title">
+                {/* {this.state.newPokemonName} */}
                 <h2>Guess That Pokemon!</h2>
-                <div className="row d-flex justify-content-center Pokeimg">
+                <div className="justify-content-center Pokeimg">
                   <img
                     src={this.state.newPokemonImage}
                     alt={this.state.newPokemonImage}
                   />
                 </div>
-                <div className="Center row">
-                  <form onSubmit={this.handleSubmit} className="d-flex">
+                <div className="Center">
+                  <form onSubmit={this.handleSubmit} className="">
+                  <div className='Input-Guess'> 
                     <input
                       className="InputPokemon"
                       name="text"
@@ -161,30 +163,30 @@ class Homepage extends Component {
                       >
                         Guess
                       </button>
+                      </div>
                     </div>
                   </form>
                   <div>
                     <button
                       className="ShowMyDeck"
-                      onClick={() => this.props.handleDeckShow()}
-                    >
-                      {" "}
-                      Show my Deck{" "}
+                      onClick={() => this.props.handleDeckShow()} >
+                      Show my Deck
                     </button>
                   </div>
-
+                  </div>
+               
                   <div className="Guessed ">
-                    <div className="">
+                  
                       <ProgressBar
                         variant="secondary"
                         className="ProgressBar"
                         now={this.state.guessedPokemons}
-                      />{" "}
+                      />
                       <div className="ProgressText">
-                        {this.state.guessedPokemons} /{" "}
-                        {this.props.pokemonsLength}{" "}
+                        {this.state.guessedPokemons} /
+                        {this.props.pokemonsLength}
                       </div>
-                    </div>
+               
                   </div>
                 </div>
 
@@ -192,7 +194,7 @@ class Homepage extends Component {
                   showed={this.props.deckShowed}
                   clicked={this.props.handleDeckShow}
                 >
-                  {" "}
+              
                   <h3> Your Deck! Click on them to see the stats! </h3>
                   <div className="Deck row justifiy-items-between">
                     {this.state.pokemonDeck.map(item => (
@@ -219,8 +221,7 @@ class Homepage extends Component {
                             </div>
                           ) : (
                             <div className="PokeHidden card p-3 align-text-center">
-                              {" "}
-                              ?{" "}
+                             <span className='QuestionMark'> &#63; </span>
                             </div>
                           )}
                         </React.Fragment>
@@ -245,7 +246,7 @@ class Homepage extends Component {
                 </React.Fragment>
               </div>
             </div>
-          </div>
+         
         ) : (
           error
         )}

@@ -1,4 +1,12 @@
 .App {
   font-family: sans-serif;
   text-align: center;
+  justify-content: center;
+
+
 }
+
+body {
+  background-image: url('../src/Images/201186.jpg');
+}
+

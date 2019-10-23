@@ -12,7 +12,7 @@ const PokemonStatsModal = props => (
       }}
     >
       <PokemonStats pokemonId={props.pokemonId} />
-      <button onClick={props.clicked} className='ModalButton'> x </button>
+      <div onClick={props.clicked} className='Xbutton'>  </div>
     </div>
   </div>
 );
